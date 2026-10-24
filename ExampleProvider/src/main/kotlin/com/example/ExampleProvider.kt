@@ -29,6 +29,7 @@ class EromeProvider : MainAPI() {
         return results
     }
 
+    
     override suspend fun load(url: String): LoadResponse {
         val document = app.get(url).document
         val title = document.select("h1").text().trim()
