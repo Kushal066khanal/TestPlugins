@@ -3,13 +3,12 @@ package com.example
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
 
-class EromeProvider : MainAPI() {
+class ExampleProvider : MainAPI() {
     override var mainUrl = "https://www.erome.com"
     override var name = "EroMe"
-    override val supportedTypes = setOf(TvType.NSFW) // Set appropriate media type
+    override val supportedTypes = setOf(TvType.NSFW)
     override var lang = "en"
     override val hasMainPage = true
-    
 
     override suspend fun search(query: String): List<SearchResponse> {
         val document = app.get("$mainUrl/search?q=$query").document
@@ -29,7 +28,6 @@ class EromeProvider : MainAPI() {
         return results
     }
 
-    
     override suspend fun load(url: String): LoadResponse {
         val document = app.get(url).document
         val title = document.select("h1").text().trim()
@@ -37,7 +35,6 @@ class EromeProvider : MainAPI() {
 
         val episodes = ArrayList<Episode>()
         
-        // Erome albums usually embed multiple videos/media elements on a single page
         document.select("video source, div.media-group").forEachIndexed { index, element ->
             val videoUrl = element.attr("src")
             if (videoUrl.isNotEmpty()) {
