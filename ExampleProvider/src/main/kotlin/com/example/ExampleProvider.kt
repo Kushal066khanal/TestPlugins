@@ -9,6 +9,7 @@ class EromeProvider : MainAPI() {
     override val supportedTypes = setOf(TvType.NSFW) // Set appropriate media type
     override var lang = "en"
     override val hasMainPage = true
+    
 
     override suspend fun search(query: String): List<SearchResponse> {
         val document = app.get("$mainUrl/search?q=$query").document
